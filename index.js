@@ -1,27 +1,33 @@
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const config = require('../config/config');
-const db = {}
+import Vue from 'vue'
+import Router from 'vue-router'
+import CreateUser from '@/components/CreateUser'
+import EditUser from '@/components/EditUser'
+import IndexUser from '@/components/Index'
+import ShowUser from '@/components/ShowUser'
 
-const sequelize = new Sequelize(
-    config.db.database,
-    config.db.user,
-    config.db.password,
-    config.db.options
-)
+Vue.use(Router)
 
-fs.readdirSync(__dirname)
-    .filter((file) =>
-        file !== 'index.js'
-    )
-    .forEach((file) => {
-        //const model = sequelize.import(path.join(__dirname, file));
-        const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
-        db[model.name] = model;
-    })
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+export default new Router({
+  routes: [
+    {
+      path: '/mouse',
+      name: 'mouse',
+      component: CreateUser
+    },
+    {
+      path: '/mouse',
+      name: 'mouse',
+      component: EditUser
+    },
+    {
+      path: '/mouses',
+      name: 'mouse',
+      component: IndexUser
+    },
+    {
+      path: '/mouse',
+      name: 'mouse',
+      component: ShowUser
+    }
+  ]
+})
